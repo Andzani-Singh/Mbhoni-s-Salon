@@ -126,8 +126,8 @@ img {
     
     .nav-link:hover,
     .nav-link.active {
-        background: rgba(212, 175, 55, 0.2);
-        border-radius: 5px;
+        color: var(--primary-color) !important;
+        background: transparent;
     }
     
     .nav-item {
