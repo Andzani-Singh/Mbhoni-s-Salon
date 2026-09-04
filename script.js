@@ -17,7 +17,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             const navbarHeight = document.getElementById('navbar').offsetHeight;
-            const targetPosition = targetElement.offsetTop - navbarHeight - 20;
+            const isMobile = window.innerWidth <= 991;
+            const offset = isMobile ? navbarHeight - 10 : navbarHeight - 20;
+            const targetPosition = targetElement.offsetTop - offset;
             
             window.scrollTo({
                 top: targetPosition,
@@ -30,6 +32,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             if (bsCollapse) {
                 bsCollapse.hide();
             }
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
         }
     });
 });
