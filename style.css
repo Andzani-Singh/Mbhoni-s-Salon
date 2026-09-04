@@ -161,7 +161,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('home.png') center/cover;
+    background: url('images/home.png') center/cover;
     opacity: 0.3;
     z-index: 0;
 }
