@@ -28,7 +28,7 @@ The purpose of this project is to create a professional online presence for Mbho
 
 ## 🌐 View Live
 
-**[View Mbhoni's Salon Live](YOUR-LIVE-WEBSITE-LINK)**
+**[View Mbhoni's Salon Live](https://andzani-singh.github.io/Mbhoni-s-Salon/)**
 
 ## 📂 Project Structure
 
