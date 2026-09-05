@@ -8,6 +8,18 @@ window.addEventListener('scroll', function() {
     }
 });
 
+// ===== Prevent body scroll when mobile menu is open =====
+const navbarCollapse = document.getElementById('navbarNav');
+if (navbarCollapse) {
+    navbarCollapse.addEventListener('show.bs.collapse', function() {
+        document.body.style.overflow = 'hidden';
+    });
+    
+    navbarCollapse.addEventListener('hidden.bs.collapse', function() {
+        document.body.style.overflow = '';
+    });
+}
+
 // ===== Smooth Scrolling for Navigation Links =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -17,9 +29,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             const navbarHeight = document.getElementById('navbar').offsetHeight;
-            const isMobile = window.innerWidth <= 991;
-            const offset = isMobile ? navbarHeight - 10 : navbarHeight - 20;
-            const targetPosition = targetElement.offsetTop - offset;
+            const targetPosition = targetElement.offsetTop - navbarHeight - 10;
             
             window.scrollTo({
                 top: targetPosition,
