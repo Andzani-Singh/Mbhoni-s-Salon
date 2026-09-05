@@ -38,8 +38,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             
             // Close mobile menu if open
             const navbarCollapse = document.getElementById('navbarNav');
-            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-            if (bsCollapse) {
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
                 bsCollapse.hide();
             }
             
