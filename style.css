@@ -156,10 +156,39 @@ img {
 .navbar-toggler {
     border: none;
     color: var(--primary-color);
+    padding: 0.5rem;
 }
 
 .navbar-toggler:focus {
     box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+}
+
+.navbar-toggler-icon i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.navbar-toggler-icon .toggler-icon-close {
+    display: none;
+}
+
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon .toggler-icon-open {
+    display: none;
+}
+
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon .toggler-icon-close {
+    display: block;
 }
 
 /* ===== Hero Section ===== */

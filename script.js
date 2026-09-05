@@ -8,45 +8,107 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// ===== Prevent body scroll when mobile menu is open =====
-const navbarCollapse = document.getElementById('navbarNav');
-if (navbarCollapse) {
-    navbarCollapse.addEventListener('show.bs.collapse', function() {
-        document.body.style.overflow = 'hidden';
-    });
-    
-    navbarCollapse.addEventListener('hidden.bs.collapse', function() {
-        document.body.style.overflow = '';
-    });
-}
+// ===== Helper: Close mobile hamburger menu =====
+function closeMobileMenu() {
+    const navbarCollapse = document.getElementById('navbarNav');
+    const navbarToggler = document.querySelector('.navbar-toggler');
 
-// ===== Smooth Scrolling for Navigation Links =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            const navbarHeight = document.getElementById('navbar').offsetHeight;
-            const targetPosition = targetElement.offsetTop - navbarHeight - 10;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-            
-            // Close mobile menu if open
-            const navbarCollapse = document.getElementById('navbarNav');
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-                navbarCollapse.classList.remove('show');
+    if (!navbarCollapse || !navbarCollapse.classList.contains('show')) return;
+
+    let closed = false;
+
+    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+    if (bsCollapse) {
+        try {
+            bsCollapse.hide();
+            closed = true;
+        } catch (e) { closed = false; }
+    }
+
+    if (!closed) {
+        if (navbarToggler && !navbarToggler.classList.contains('collapsed')) {
+            navbarToggler.click();
+            closed = true;
+        } else {
+            navbarCollapse.classList.remove('show');
+            if (navbarToggler) {
                 navbarToggler.classList.add('collapsed');
                 navbarToggler.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
+            }
+            closed = true;
+        }
+    }
+
+    document.body.style.overflow = '';
+}
+
+// ===== Sync toggler collapsed class with Bootstrap collapse events =====
+(function syncTogglerWithCollapse() {
+    const navbarCollapse = document.getElementById('navbarNav');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    if (!navbarCollapse || !navbarToggler) return;
+
+    navbarCollapse.addEventListener('show.bs.collapse', function() {
+        navbarToggler.classList.remove('collapsed');
+        navbarToggler.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    });
+
+    navbarCollapse.addEventListener('shown.bs.collapse', function() {
+        navbarToggler.classList.remove('collapsed');
+        navbarToggler.setAttribute('aria-expanded', 'true');
+    });
+
+    navbarCollapse.addEventListener('hide.bs.collapse', function() {
+        navbarToggler.classList.add('collapsed');
+        navbarToggler.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    });
+
+    navbarCollapse.addEventListener('hidden.bs.collapse', function() {
+        navbarToggler.classList.add('collapsed');
+        navbarToggler.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    });
+})();
+
+// ===== Smooth Scrolling and Mobile Menu Closing =====
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener('click', function(e) {
+
+        const targetId = this.getAttribute('href');
+
+        closeMobileMenu();
+
+        if (targetId && targetId.startsWith('#') && targetId.length > 1) {
+
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+
+                e.preventDefault();
+
+                const navbarElement = document.getElementById('navbar');
+                const navbarHeight = navbarElement
+                    ? navbarElement.offsetHeight
+                    : 0;
+
+                const targetPosition =
+                    targetElement.offsetTop - navbarHeight - 10;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                history.replaceState(null, null, targetId);
             }
         }
+
     });
+
 });
 
 // ===== Active Navigation Link on Scroll =====
@@ -303,22 +365,6 @@ if (statsSection) {
     statsObserver.observe(statsSection);
 }
 
-// ===== Mobile Menu Enhancement =====
-const navbarToggler = document.querySelector('.navbar-toggler');
-const navbarCollapse = document.getElementById('navbarNav');
-
-if (navbarToggler && navbarCollapse) {
-    navbarToggler.addEventListener('click', function() {
-        setTimeout(() => {
-            if (navbarCollapse.classList.contains('show')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }, 300);
-    });
-}
-
 // Close mobile menu when clicking outside
 document.addEventListener('click', function(e) {
     const navbar = document.getElementById('navbar');
@@ -329,6 +375,16 @@ document.addEventListener('click', function(e) {
         const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
         if (bsCollapse) {
             bsCollapse.hide();
+        } else {
+            if (navbarToggler && !navbarToggler.classList.contains('collapsed')) {
+                navbarToggler.click();
+            } else {
+                navbarCollapse.classList.remove('show');
+                if (navbarToggler) {
+                    navbarToggler.classList.add('collapsed');
+                    navbarToggler.setAttribute('aria-expanded', 'false');
+                }
+            }
         }
         document.body.style.overflow = '';
     }
