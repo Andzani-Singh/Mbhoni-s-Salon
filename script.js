@@ -38,18 +38,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             
             // Close mobile menu if open
             const navbarCollapse = document.getElementById('navbarNav');
-            if (navbarCollapse) {
-                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                if (bsCollapse) {
-                    bsCollapse.hide();
-                } else if (navbarCollapse.classList.contains('show')) {
-                    const newCollapse = new bootstrap.Collapse(navbarCollapse);
-                    newCollapse.hide();
-                }
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+                navbarToggler.classList.add('collapsed');
+                navbarToggler.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
-            
-            // Restore body scroll
-            document.body.style.overflow = '';
         }
     });
 });
