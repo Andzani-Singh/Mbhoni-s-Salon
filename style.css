@@ -59,6 +59,8 @@ img {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color) !important;
+    display: flex;
+    align-items: center;
 }
 
 .navbar-logo {
@@ -78,6 +80,22 @@ img {
 
 .navbar-brand:hover {
     color: var(--primary-dark) !important;
+}
+
+@media (max-width: 991px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    .navbar-logo {
+        height: 45px;
+        max-width: 150px;
+    }
+    
+    .navbar-brand-text {
+        font-size: 1rem;
+        margin-left: 8px;
+    }
 }
 
 .nav-link {
