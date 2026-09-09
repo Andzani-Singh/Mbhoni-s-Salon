@@ -157,7 +157,7 @@ if (appointmentForm) {
             console.log('Appointment Booking:', formData);
             
             // Send WhatsApp message
-            const whatsappNumber = '27717758089'; // South African format (0717758089)
+            const whatsappNumber = '27663249339'; // South African format (0663249339)
             const serviceNames = {
                 'knotless-short': 'Knotless Braids Short',
                 'knotless-long': 'Knotless Braids Long',
@@ -176,7 +176,7 @@ if (appointmentForm) {
                 `📆 *Date:* ${formData.date}\n` +
                 `⏰ *Time:* ${formData.time}\n` +
                 `📝 *Notes:* ${formData.notes || 'None'}\n\n` +
-                `I have an Appointment From Your Website, please get back to me as soon as You see the message.`;
+                `I have booked an Appointment From Your Website, please get back to me as soon as You see the message.`;
             
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
