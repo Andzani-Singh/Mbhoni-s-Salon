@@ -159,11 +159,13 @@ if (appointmentForm) {
             // Send WhatsApp message
             const whatsappNumber = '27717758089'; // South African format (0717758089)
             const serviceNames = {
-                'knotless': 'Knotless Braids',
-                'boho': 'Boho/Goddess Braids',
-                'stitch': 'Stitch Cornrows',
-                'fulani': 'Fulani Braids',
-                'lemonade': 'Lemonade Braids'
+                'knotless-short': 'Knotless Braids Short',
+                'knotless-long': 'Knotless Braids Long',
+                'freehand': 'Free Hand',
+                'straightup': 'Straight Up',
+                'straightback': 'Straight Back',
+                'lemonade-long': 'Lemonade Long Braids',
+                'lemonade-short': 'Lemonade Short Braids'
             };
             
             const serviceName = serviceNames[formData.service] || formData.service;
@@ -174,7 +176,7 @@ if (appointmentForm) {
                 `📆 *Date:* ${formData.date}\n` +
                 `⏰ *Time:* ${formData.time}\n` +
                 `📝 *Notes:* ${formData.notes || 'None'}\n\n` +
-                `Please confirm this appointment.`;
+                `I have an Appointment From Your Website, please get back to me as soon as You see the message.`;
             
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
@@ -214,13 +216,13 @@ if (contactForm) {
             console.log('Contact Form Submission:', formData);
             
             // Send WhatsApp message directly
-            const whatsappNumber = '27717758089'; // South African format (0717758089)
+            const whatsappNumber = '27663249339'; // South African format (0663249339)
             const message = `📩 *New Contact Inquiry*\n\n` +
                 `👤 *Name:* ${formData.name}\n` +
                 `📧 *Email:* ${formData.email}\n` +
                 `📌 *Subject:* ${formData.subject}\n` +
                 `💬 *Message:* ${formData.message}\n\n` +
-                `Please respond to this inquiry.`;
+                `Please respond to this inquiry..from your website.`;
             
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.location.href = whatsappUrl;
